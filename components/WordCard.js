@@ -20,6 +20,9 @@ function WordCard({ wordInfo, setNext }) {
         <Text style={styles.word}>{wordInfo.word}</Text>
         {showFullInfo && (
           <>
+            {wordInfo.image ? (
+              <Image style={styles.image} source={{ uri: wordInfo.image }} />
+            ) : null}
             <Text style={styles.phonetics}>{wordInfo.phonetics}</Text>
             <Pressable
               style={styles.playPressable}
@@ -126,7 +129,7 @@ function getStyles(colors) {
     image: {
       width: 150,
       aspectRatio: 1,
-      // marginBottom: 30,
+      borderRadius: 6,
     },
   });
 }

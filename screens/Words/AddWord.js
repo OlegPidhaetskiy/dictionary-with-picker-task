@@ -13,10 +13,12 @@ import { wordsLearningActions } from "../../store/wordsLearningSlice";
 import { getWordInfo } from "../../services/wordsHandler";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { playSound } from "../../services/soundHandler";
+import ImagePickerField from "../../components/ImagePickerField";
 
 function AddWord({ navigation }) {
   const [text, setText] = useState();
   const [wordData, setWordData] = useState();
+  const [image, setImage] = useState();
   const colors = useSelector((state) => state.theme.colors);
   const styles = useMemo(() => getStyles(colors), [colors]);
   const dispatch = useDispatch();
@@ -44,12 +46,19 @@ function AddWord({ navigation }) {
   }, [navigation, wordData]);
 
   function onAdd() {
-    dispatch(wordsLearningActions.addWord(wordData));
+    dispatch(
+      wordsLearningActions.addWord(image ? { ...wordData, image } : wordData)
+    );
     navigation.navigate("AllWords");
   }
 
   return (
     <>
+      <ImagePickerField
+        image={image}
+        onPick={setImage}
+        disabled={!wordData?.word}
+      />
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Your word to search:</Text>
         <TextInput

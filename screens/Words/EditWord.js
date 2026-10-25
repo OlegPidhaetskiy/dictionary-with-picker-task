@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { playSound } from "../../services/soundHandler";
+import ImagePickerField from "../../components/ImagePickerField";
 import { useState, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { wordsLearningActions } from "../../store/wordsLearningSlice";
@@ -30,6 +31,10 @@ function EditWord({ route, navigation }) {
 
   return (
     <>
+      <ImagePickerField
+        image={wordData.image}
+        onPick={(uri) => onChangeWordData(uri, "image")}
+      />
       <View style={styles.receivedInfoContainer}>
         <View style={{ flexDirection: "row", alignItems: "baseline" }}>
           <Text style={styles.word}>{wordData.word}</Text>
